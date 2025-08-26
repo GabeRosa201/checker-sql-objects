@@ -2,6 +2,11 @@
 class Database():
 
     def __init__(self):
+        self._database = '',
+        self._server = '',
+        self._user = '',
+        self._pwd = '',
+        self._is_auth_windows = ''
         pass
 
     def get_procedures_from_base(self):
