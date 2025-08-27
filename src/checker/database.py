@@ -1,13 +1,26 @@
 
 class Database():
 
-    def __init__(self):
-        self._database = '',
-        self._server = '',
-        self._user = '',
-        self._pwd = '',
-        self._is_auth_windows = ''
-        pass
+    def __init__(self, database:str, server:str, user:str, pwd:str, auth_windows:bool=False):
+        self._database = database
+        self._server = server
+        self._user = user
+        self._pwd = pwd
+        self._is_auth_windows = auth_windows
+
+    def get_connection_string_sql(self):
+        if not self._is_auth_windows:
+            return f'DRIVER={{ODBC Driver 18 for SQL Server}};\
+SERVER={self._server};\
+DATABASE={self._database};\
+UID={self._user};\
+PWD={self._pwd}'
+        else:
+            # Autenticação integrada do Windows
+            return f'DRIVER={{ODBC Driver 18 for SQL Server}};\
+                SERVER={self._server};\
+                DATABASE={self._database};\
+                Trusted_Connection=yes;'
 
     def get_procedures_from_base(self):
 
