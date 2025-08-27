@@ -7,33 +7,13 @@ class Connection():
         self._driver = 'ODBC Driver 17 for SQL Server'
         pass
 
-    def connect_database(self, 
-                         database:str, 
-                         server:str, 
-                         user: str,
-                         pwd: str,
-                         is_windows_auth: str):
+    def connect_database(self, connection_string):
         
         """
         Estabelece a conexão com o SQL Server.
         """
         try:
-            if user and pwd:
-                self._connection = pyodbc.connect(
-                    f"DRIVER={{{self._driver}}};"
-                    f"SERVER={server};"
-                    f"DATABASE={database};"
-                    f"UID={user};"
-                    f"PWD={is_windows_auth};"
-                )
-            else:
-                # Autenticação integrada do Windows
-                self._connection = pyodbc.connect(
-                    f"DRIVER={{{self._driver}}};"
-                    f"SERVER={server};"
-                    f"DATABASE={database};"
-                    f"Trusted_Connection=yes;"
-                )
+            self._connection = pyodbc.connect(connection_string)
 
             print("✅ Conexão estabelecida com sucesso!")
             return self._connection
